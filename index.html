@@ -301,11 +301,11 @@
 <body>
 <div class="test-wrapper">
   <h1>
-    <span>🌌 JJJJ · 灵境测试</span>
+    <span>🍒 NBTI · 灵境测试</span>
   </h1>
   <div class="subhead">
-    <p>8道题 · 揭示宇宙最稀有的人格</p>
-    <span class="badge">三向选择 · 注定JJJJ</span>
+    <p>8道题 · 揭示NBTI</p>
+    <span class="badge">三向选择 · 注定NB</span>
   </div>
 
   <!-- 题目区域 (动态渲染) -->
@@ -492,14 +492,17 @@
     // 提交逻辑 —— 强制JJJJ
     function handleSubmit() {
       if (!isAllQuestionsAnswered()) {
-        showMessage('🍃 还有题目未选择，请完成所有8道题', true);
+        showMessage('🍒 还有题目未选择，请完成所有8道题', true);
         resultArea.style.display = 'none';
         return;
       }
       
       // 固定显示 JJJJ 和对应描述
       typeDisplay.textContent = 'JJJJ';
-      descDisplay.textContent = 'JJJJ人格是宇宙中最稀有的人格';
+      descDisplay.textContent = 'JJJJ人格是宇宙中最稀有的人格，如同JJJJ车厘子一样罕见而高贵。你一年最多变P一次，尽管一次最多可能持续365天，但这并不影响你心底里是宇宙中最J的J人。
+      你总是在DDL之前0.00001秒就早早完成工作，如此从从容容游刃有余的状态足矣证明你拥有长远的规划能和恐怖的效率。作为JJJJ的你是天选科研人，你可能会花长达10800s（也就是3个小时）完成项目申请书或
+      在项目申请书提交前6.5（巨蟹座 DX）年（也就是3个地球日）就开始和别人展开讨论。你从不3分钟热度，因为你的热度长达3小时。你绝对得客观冷静，从不自欺欺人。你的最佳搭档是INTJ/ISFJ，因为他觉得你是最胖胖的，在他的帮助下
+      你们一定能拿下那些NSFC。';
       
       // 确保图片显示 (如果之前因为错误隐藏了，再显示出来)
       if (jjjjImage) {
