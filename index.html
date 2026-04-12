@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>✨ JJJJ · 宇宙稀有人格测试</title>
+  <title>🍒 NBTI · 灵境性格测试</title>
   <style>
     * {
       margin: 0;
@@ -320,7 +320,10 @@
   <!-- 结果显示区 (包含固定JJJJ + 描述 + 图片) -->
   <div id="resultArea" class="result-panel" style="display: none;">
     <div class="result-type" id="typeDisplay">JJJJ</div>
-    <div class="result-desc" id="descDisplay">JJJJ人格是宇宙中最稀有的人格</div>
+    <div class="result-desc" id="descDisplay">JJJJ人格是宇宙中最稀有的人格，如同JJJJ车厘子一样罕见而高贵。你一年最多变P一次，尽管一次最多可能持续365天，但这并不影响你心底里是宇宙中最J的J人。
+      你总是在DDL之前0.00001秒就早早完成工作，如此从从容容游刃有余的状态足矣证明你拥有长远的规划能和恐怖的效率。作为JJJJ的你是天选科研人，你可能会花长达10800s（也就是3个小时）完成项目申请书或
+      在项目申请书提交前6.5（巨蟹座 DX）年（也就是3个地球日）就开始和别人展开讨论。你从不3分钟热度，因为你的热度长达3小时。你绝对得客观冷静，从不自欺欺人。你的最佳搭档是INTJ/ISFJ，因为他觉得你是最胖胖的，在他的帮助下
+      你们一定能拿下那些NSFC。</div>
     <!-- 图片区域：请将你的图片放在GitHub仓库中，并替换下方的 src 地址 -->
     <!-- 示例: src="https://your-username.github.io/repo-name/images/jjjj.png" -->
     <img id="jjjjImage" class="jjjj-image" 
@@ -333,7 +336,7 @@
     </p>
   </div>
   <div id="messageArea" class="hint-message"></div>
-  <div class="footer-note">⚡ 无论怎么选，结果都是 JJJJ · 命中注定</div>
+  <div class="footer-note">⚡ 无论怎么选，结果都是命中注定</div>
 </div>
 
 <script>
@@ -474,7 +477,7 @@
         radios.forEach(r => r.checked = false);
       });
       hideResult();
-      showMessage('✨ 已清空 · 但最终仍会是JJJJ', false);
+      showMessage('✨ 已清空', false);
     }
 
     // 检查是否全部作答
@@ -489,7 +492,7 @@
     // 提交逻辑 —— 强制JJJJ
     function handleSubmit() {
       if (!isAllQuestionsAnswered()) {
-        showMessage('🍃 还有题目未选择，请完成所有8道题 (反正结果都是JJJJ)', true);
+        showMessage('🍃 还有题目未选择，请完成所有8道题', true);
         resultArea.style.display = 'none';
         return;
       }
