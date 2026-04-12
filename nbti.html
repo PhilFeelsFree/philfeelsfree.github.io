@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>🍒 NBTI · 灵境性格测试</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f7f3ff 0%, #e9e2fa 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      padding: 1.5rem;
+    }
+
+    .test-wrapper {
+      max-width: 820px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 42px;
+      box-shadow: 0 25px 45px -8px rgba(58, 36, 94, 0.18), 0 8px 18px rgba(0,0,0,0.05);
+      padding: 2.2rem 2rem 2.5rem;
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: all 0.2s ease;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #2b1b3e, #4a2c6d);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .subhead {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2.2rem;
+      border-bottom: 1.5px solid rgba(120, 80, 160, 0.12);
+      padding-bottom: 0.9rem;
+    }
+
+    .subhead p {
+      color: #4a3a5c;
+      font-weight: 450;
+      font-size: 1rem;
+    }
+
+    .badge {
+      background: #d9c9fc;
+      color: #281b3a;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 550;
+      letter-spacing: 0.3px;
+    }
+
+    .questions-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .question-card {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 28px;
+      padding: 1.5rem 1.5rem 1.2rem;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.7);
+      box-shadow: 0 6px 12px -6px rgba(0,0,0,0.05);
+      transition: transform 0.15s;
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.2rem;
+    }
+
+    .q-num {
+      background: #b79aec;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 4px 6px rgba(130, 80, 200, 0.2);
+    }
+
+    .q-text {
+      font-size: 1.15rem;
+      font-weight: 540;
+      color: #1e142b;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .option {
+      flex: 1 1 130px;
+      min-width: 110px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .option input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .option span {
+      display: block;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1.5px solid rgba(190, 160, 230, 0.25);
+      border-radius: 60px;
+      padding: 12px 10px;
+      text-align: center;
+      font-weight: 470;
+      color: #2e1f40;
+      transition: all 0.18s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      font-size: 0.98rem;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .option:hover span {
+      background: #f1eaff;
+      border-color: #b18be0;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 14px -10px rgba(100, 60, 160, 0.2);
+    }
+
+    .option input:checked + span {
+      background: linear-gradient(115deg, #dcc9ff, #c3a6f5);
+      border-color: #9a72da;
+      color: #1c0f2b;
+      font-weight: 540;
+      box-shadow: 0 8px 14px -6px #a583dc, 0 0 0 2px rgba(170, 120, 240, 0.2);
+      transform: scale(1.01);
+    }
+
+    .action-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      background: white;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 580;
+      color: #311f4b;
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(220, 190, 255, 0.6);
+      box-shadow: 0 10px 18px -10px rgba(90, 50, 140, 0.2);
+      cursor: pointer;
+      transition: 0.18s;
+      min-width: 160px;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary {
+      background: #2d1c46;
+      color: white;
+      border: 1px solid #5e4091;
+      box-shadow: 0 14px 22px -8px #3e2860;
+    }
+
+    .btn-primary:hover {
+      background: #402c5c;
+      transform: translateY(-3px);
+      box-shadow: 0 18px 28px -8px #422f66;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.55);
+      color: #352653;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 245, 255, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .result-panel {
+      margin-top: 2.5rem;
+      border-radius: 34px;
+      background: rgba(30, 15, 45, 0.08);
+      padding: 1.6rem 2rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(230, 210, 255, 0.6);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .result-type {
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: 8px;
+      background: linear-gradient(130deg, #392755, #66499b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .result-desc {
+      font-size: 1.25rem;
+      color: #1e142b;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* JJJJ 专属图片样式 */
+    .jjjj-image {
+      margin: 20px auto 10px;
+      max-width: 280px;
+      border-radius: 28px;
+      box-shadow: 0 20px 30px -8px rgba(70, 30, 120, 0.3);
+      border: 3px solid rgba(255, 255, 255, 0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .jjjj-image:hover {
+      transform: scale(1.02);
+    }
+
+    .hint-message {
+      color: #b45f5f;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .footer-note {
+      text-align: right;
+      opacity: 0.7;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+      color: #4a3668;
+    }
+
+    /* 响应式 */
+    @media (max-width: 550px) {
+      body { padding: 0.8rem; }
+      .test-wrapper { padding: 1.5rem 1.2rem; }
+      h1 { font-size: 2rem; }
+      .options { gap: 8px; }
+      .option span { padding: 12px 6px; font-size: 0.9rem; }
+      .btn { padding: 12px 18px; font-size: 1rem; min-width: 130px; }
+      .result-type { font-size: 2.8rem; letter-spacing: 5px; }
+      .jjjj-image { max-width: 220px; }
+    }
+  </style>
+</head>
+<body>
+<div class="test-wrapper">
+  <h1>
+    <span>🍒 NBTI · 灵境测试</span>
+  </h1>
+  <div class="subhead">
+    <p>8道题 · 揭示NBTI</p>
+    <span class="badge">三向选择 · 注定NB</span>
+  </div>
+
+  <!-- 题目区域 (动态渲染) -->
+  <div class="questions-container" id="questionsContainer"></div>
+
+  <!-- 操作按钮组 -->
+  <div class="action-bar">
+    <button class="btn btn-secondary" id="resetBtn">↻ 清空重选</button>
+    <button class="btn btn-primary" id="submitBtn">✨ 提交</button>
+  </div>
+
+  <!-- 结果显示区 (包含固定JJJJ + 描述 + 图片) -->
+  <div id="resultArea" class="result-panel" style="display: none;">
+    <div class="result-type" id="typeDisplay">JJJJ</div>
+    <div class="result-desc" id="descDisplay">JJJJ人格是宇宙中最稀有的人格，如同JJJJ车厘子一样罕见而高贵。你一年最多变P一次，尽管一次最多可能持续365天，但这并不影响你心底里是宇宙中最J的J人。
+      你总是在DDL之前0.00001秒就早早完成工作，如此从从容容游刃有余的状态足矣证明你拥有长远的规划能和恐怖的效率。作为JJJJ的你是天选科研人，你可能会花长达10800s（也就是3个小时）完成项目申请书或
+      在项目申请书提交前6.5（巨蟹座 DX）年（也就是3个地球日）就开始和别人展开讨论。你从不3分钟热度，因为你的热度长达3小时。你绝对得客观冷静，从不自欺欺人。你的最佳搭档是INTJ/ISFJ，因为他觉得你是最胖胖的，在他的帮助下
+      你们一定能拿下那些NSFC。</div>
+    <!-- 图片区域：请将你的图片放在GitHub仓库中，并替换下方的 src 地址 -->
+    <!-- 示例: src="https://your-username.github.io/repo-name/images/jjjj.png" -->
+    <img id="jjjjImage" class="jjjj-image" 
+         src="https://placehold.co/400x400/d9c9fc/4a2c6d?text=JJJJ" 
+         alt="JJJJ 稀有人格象征"
+         style="max-width: 100%; height: auto;"
+         onerror="this.style.display='none'; console.warn('JJJJ图片加载失败，请检查图片路径。')">
+    <p style="font-size: 0.85rem; margin-top: 8px; color: #5e4a72; opacity: 0.8;">
+      ⚡ 图片路径可在代码中修改为你的GitHub图片链接
+    </p>
+  </div>
+  <div id="messageArea" class="hint-message"></div>
+  <div class="footer-note">⚡ 无论怎么选，结果都是命中注定</div>
+</div>
+
+<script>
+  (function(){
+    "use strict";
+
+    // ---------- 题库 (与之前相同，只是结果强制为JJJJ) ----------
+    const questions = [
+      {
+        id: 'q1',
+        text: '在聚会或社交场合，你通常会？',
+        options: [
+          { label: 'A. 与许多人交流，感到充实', value: 'E' },
+          { label: 'B. 更愿和少数人深谈或安静观察', value: 'I' },
+          { label: 'C. 视心情而定，两者皆可', value: 'M' }
+        ]
+      },
+      {
+        id: 'q2',
+        text: '当你需要恢复能量时，更倾向于？',
+        options: [
+          { label: 'A. 和朋友出去玩，热闹一番', value: 'E' },
+          { label: 'B. 独自看书、听音乐或冥想', value: 'I' },
+          { label: 'C. 两者平衡，没特别偏好', value: 'M' }
+        ]
+      },
+      {
+        id: 'q3',
+        text: '你更关注或信赖哪类信息？',
+        options: [
+          { label: 'A. 具体事实、细节和经验', value: 'S' },
+          { label: 'B. 抽象概念、模式和未来可能', value: 'N' },
+          { label: 'C. 都重要，看情况', value: 'M' }
+        ]
+      },
+      {
+        id: 'q4',
+        text: '阅读或学习时，你通常更喜欢？',
+        options: [
+          { label: 'A. 条理清晰、按步骤的内容', value: 'S' },
+          { label: 'B. 充满联想、跳跃性的灵感', value: 'N' },
+          { label: 'C. 两者结合，没有绝对', value: 'M' }
+        ]
+      },
+      {
+        id: 'q5',
+        text: '做重要决定时，你更看重？',
+        options: [
+          { label: 'A. 逻辑、原则和客观分析', value: 'T' },
+          { label: 'B. 个人价值观、情感与和谐', value: 'F' },
+          { label: 'C. 理性与感性兼顾', value: 'M' }
+        ]
+      },
+      {
+        id: 'q6',
+        text: '朋友向你倾诉烦恼，你下意识会？',
+        options: [
+          { label: 'A. 帮ta分析问题，给解决方案', value: 'T' },
+          { label: 'B. 先共情安慰，提供情绪支持', value: 'F' },
+          { label: 'C. 两者都会，视朋友需要', value: 'M' }
+        ]
+      },
+      {
+        id: 'q7',
+        text: '对于日常生活和计划，你更偏向？',
+        options: [
+          { label: 'A. 有条理、列清单，按计划行事', value: 'J' },
+          { label: 'B. 灵活随性，享受即兴变化', value: 'P' },
+          { label: 'C. 有计划但也能接受变动', value: 'M' }
+        ]
+      },
+      {
+        id: 'q8',
+        text: '面对最后期限或日程，你通常？',
+        options: [
+          { label: 'A. 提前完成，不喜欢拖延', value: 'J' },
+          { label: 'B. 在压力下爆发，最后冲刺', value: 'P' },
+          { label: 'C. 介于两者之间', value: 'M' }
+        ]
+      }
+    ];
+
+    const container = document.getElementById('questionsContainer');
+    function renderQuestions() {
+      let html = '';
+      questions.forEach((q, index) => {
+        const qNumber = index + 1;
+        html += `<div class="question-card" data-qid="${q.id}">`;
+        html += `<div class="question-header"><span class="q-num">${qNumber}</span><span class="q-text">${q.text}</span></div>`;
+        html += `<div class="options">`;
+        
+        q.options.forEach((opt, optIdx) => {
+          const inputId = `${q.id}_${optIdx}`;
+          html += `<label class="option">`;
+          html += `<input type="radio" name="${q.id}" value="${opt.value}" id="${inputId}" hidden>`;
+          html += `<span>${opt.label}</span>`;
+          html += `</label>`;
+        });
+        
+        html += `</div></div>`;
+      });
+      container.innerHTML = html;
+    }
+    renderQuestions();
+
+    // ---------- DOM 元素 ----------
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultArea = document.getElementById('resultArea');
+    const typeDisplay = document.getElementById('typeDisplay');
+    const descDisplay = document.getElementById('descDisplay');
+    const messageArea = document.getElementById('messageArea');
+    const jjjjImage = document.getElementById('jjjjImage');
+
+    // ---------- 你可以在这里修改图片地址 (替换为你的GitHub图片链接) ----------
+    // 例如: const CUSTOM_IMAGE_URL = "https://yourusername.github.io/repo/images/jjjj.png";
+    const CUSTOM_IMAGE_URL = "https://placehold.co/400x400/d9c9fc/4a2c6d?text=JJJJ";  // 占位图，请替换！
+    // 应用图片地址 (如果替换了CUSTOM_IMAGE_URL，这里会自动生效)
+    if (jjjjImage) {
+      jjjjImage.src = CUSTOM_IMAGE_URL;
+    }
+
+    // 隐藏结果 & 消息辅助
+    function hideResult() {
+      resultArea.style.display = 'none';
+      messageArea.innerHTML = '';
+    }
+
+    function showMessage(text, isError = true) {
+      messageArea.innerHTML = text;
+      messageArea.style.color = isError ? '#b13e3e' : '#2e6b4b';
+    }
+
+    // 重置所有单选
+    function resetAllRadios() {
+      questions.forEach(q => {
+        const radios = document.getElementsByName(q.id);
+        radios.forEach(r => r.checked = false);
+      });
+      hideResult();
+      showMessage('✨ 已清空', false);
+    }
+
+    // 检查是否全部作答
+    function isAllQuestionsAnswered() {
+      for (let q of questions) {
+        const selected = document.querySelector(`input[name="${q.id}"]:checked`);
+        if (!selected) return false;
+      }
+      return true;
+    }
+
+    // 提交逻辑 —— 强制JJJJ
+    function handleSubmit() {
+      if (!isAllQuestionsAnswered()) {
+        showMessage('🍒 还有题目未选择，请完成所有8道题', true);
+        resultArea.style.display = 'none';
+        return;
+      }
+      
+      // 固定显示 JJJJ 和对应描述
+      typeDisplay.textContent = 'JJJJ';
+      descDisplay.textContent = 'JJJJ人格是宇宙中最稀有的人格，如同JJJJ车厘子一样罕见而高贵。你一年最多变P一次，尽管一次最多可能持续365天，但这并不影响你心底里是宇宙中最J的J人。你总是在DDL之前0.00001秒就早早完成工作，如此从从容容游刃有余的状态足矣证明你拥有长远的规划能和恐怖的效率。作为JJJJ的你是天选科研人，你可能会花长达10800s（也就是3个小时）完成项目申请书或在项目申请书提交前6.5（巨蟹座 DX）年（也就是3个地球日）就开始和别人展开讨论。你从不3分钟热度，因为你的热度长达3小时。你绝对得客观冷静，从不自欺欺人。你的最佳搭档是INTJ/ISFJ，因为他觉得你是最胖胖的，在他的帮助下你们一定能拿下那些NSFC。';
+      
+      // 确保图片显示 (如果之前因为错误隐藏了，再显示出来)
+      if (jjjjImage) {
+        jjjjImage.style.display = 'block';
+      }
+      
+      resultArea.style.display = 'block';
+      showMessage('', false);
+      
+      // 滚动到结果
+      setTimeout(() => resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+    }
+
+    // 绑定事件
+    submitBtn.addEventListener('click', handleSubmit);
+    resetBtn.addEventListener('click', resetAllRadios);
+
+    // 点击选项时清除错误提示
+    container.addEventListener('change', (e) => {
+      if (e.target && e.target.matches('input[type="radio"]')) {
+        if (messageArea.innerHTML.includes('未选择')) {
+          messageArea.innerHTML = '';
+        }
+      }
+    });
+
+    // 初始化隐藏结果
+    hideResult();
+
+    // 可选：用户如果想自定义图片，直接在控制台也可以修改，但主要提醒在HTML里。
+    console.log('🌟 JJJJ测试 · 图片地址目前为占位图，请在代码中修改 CUSTOM_IMAGE_URL 变量为你的GitHub图片链接。');
+  })();
+</script>
+</body>
+</html>
