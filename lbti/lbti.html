@@ -368,6 +368,15 @@
       color: var(--mint-700);
     }
 
+    .timer-sub {
+      position: relative;
+      margin-top: 0.35rem;
+      font-size: 0.92rem;
+      letter-spacing: 0.05em;
+      color: #3f7059;
+      font-variant-numeric: tabular-nums;
+    }
+
     /* ===================== 相册（缩略图网格） ===================== */
     .gallery-panel {
       margin-top: 1.6rem;
@@ -576,7 +585,7 @@
     <div class="result-type" id="typeDisplay">JJJJ</div>
     <div class="result-desc" id="descDisplay" style="white-space: pre-wrap;"></div>
     <img id="jjjjImage" class="jjjj-image"
-         src="https://philfeelsfree.github.io/cherry1.jpg"
+         src="https://philfeelsfree.github.io/lbit/Lisa.jpg"
          alt="JJJJ 稀有人格象征"
          onerror="this.style.display='none'; console.warn('JJJJ图片加载失败，请检查图片路径。')">
     <p style="font-size: 0.85rem; margin-top: 8px; color: #3d6b54; opacity: 0.85;">
@@ -586,12 +595,13 @@
 
   <div id="messageArea" class="hint-message"></div>
 
-  <!-- ===================== 计时器（提交后显示，只显示天数） ===================== -->
+  <!-- ===================== 计时器（提交后显示） ===================== -->
   <div class="timer-panel hidden" id="timerPanel">
     <div class="timer-eyebrow" id="timerEyebrow">⏳ 距离 2026 年 10 月 15 日 · 已经过去</div>
     <div class="timer-main">
       <span id="timerDays">0</span><small>天</small>
     </div>
+    <div class="timer-sub" id="timerSub">00 时 00 分 00 秒</div>
   </div>
 
   <!-- ===================== 相册（提交后显示，缩略图网格） ===================== -->
@@ -610,7 +620,7 @@
      注意：必须放在 .test-wrapper 之外！
      因为 .test-wrapper 带有 backdrop-filter，会使内部 position: fixed 元素以它为参照，导致无法铺满全屏。
      ==================================================== -->
-<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="相册大图，点击或按 Esc 关闭" tabindex="-1">
   <img id="lightboxImg" alt="">
   <div class="lightbox-caption" id="lightboxCap"></div>
   <div class="lightbox-tip">点击任意位置关闭 · 或按 Esc</div>
@@ -741,7 +751,7 @@
     const lightboxCap = document.getElementById('lightboxCap');
 
     /* 主图地址（可自行替换为你的 GitHub 图片链接） */
-    const CUSTOM_IMAGE_URL = "https://philfeelsfree.github.io/cherry1.jpg";
+    const CUSTOM_IMAGE_URL = "https://philfeelsfree.github.io/lbit/Lisa.jpg";
     if (jjjjImage) jjjjImage.src = CUSTOM_IMAGE_URL;
 
     /* ============================================================
@@ -759,9 +769,9 @@
     }
 
     function showExtras() {
+      updateTimer();
       timerPanel.classList.remove('hidden');
       galleryPanel.classList.remove('hidden');
-      updateTimer();            /* 显示时立即刷新天数 */
     }
 
     function showMessage(text, isError = true) {
@@ -835,15 +845,15 @@
       }
     });
 
-    hideResult();
-    hideExtras();
-
     /* ============================================================
-       5. 计时器 —— 距离 2026年10月15日 已经过去的天数（只显示天数）
+       5. 计时器 —— 距离 2026年10月15日
        ============================================================ */
-    const TARGET = new Date(2026, 9, 15, 0, 0, 0);   // 月份从 0 开始，9 = 10月
+    const TARGET = new Date('2026-10-15T21:00:00+08:00'); // 以北京时间零点为起点
     const daysEl    = document.getElementById('timerDays');
     const eyebrowEl = document.getElementById('timerEyebrow');
+    const subEl     = document.getElementById('timerSub');
+
+    const pad2 = n => String(n).padStart(2, '0');
 
     function updateTimer() {
       const now  = new Date();
@@ -851,43 +861,45 @@
       const past = diff >= 0;
       const abs  = Math.abs(diff);
 
-      /* 只取天数，不足一天按 0 天算 */
-      const days = Math.floor(abs / 86400000);
+      const days  = Math.floor(abs / 86400000);
+      const hours = Math.floor((abs % 86400000) / 3600000);
+      const mins  = Math.floor((abs % 3600000) / 60000);
+      const secs  = Math.floor((abs % 60000) / 1000);
 
       daysEl.textContent = days.toLocaleString('en-US');
       eyebrowEl.textContent = past
-        ? '⏳ 距离 2026 年 10 月 15 日 · 已经过去'
+        ? '⏳ 我们在一起已经'
         : '⏳ 距离 2026 年 10 月 15 日 · 还有';
+      subEl.textContent = `${pad2(hours)} 时 ${pad2(mins)} 分 ${pad2(secs)} 秒`;
     }
 
     updateTimer();
     setInterval(updateTimer, 1000);
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) updateTimer();
+    });
 
     /* ============================================================
        6. 相册 —— 缩略图网格 + 点击全屏
        ============================================================ */
 
     /* ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-       【图片列表 GALLERY】
-       目前 5 张都使用 cherry1.jpg，用于占位与测试。
-       以后上传了新图片后，把下面每一项里的 src 换成新图片地址即可，例如：
-         { src: 'https://philfeelsfree.github.io/cherry2.jpg', caption: '🌿 · 02' },
-         { src: 'https://philfeelsfree.github.io/cherry3.jpg', caption: '🌿 · 03' },
+       【未来在这里添加图片】
+       在下面的 GALLERY 数组里，照格式新增一行对象即可，页面会自动生成缩略图。
+       每项格式：{ src: '图片地址', caption: '图片说明文字' }
 
-       注意：
-       - 图片路径区分大小写，请确保文件名与地址完全一致。
-       - 如果使用 GitHub Pages，图片需与 html 文件在同一仓库中，或使用完整网络地址。
-       - 如果图片加载失败，会自动显示绿色占位图。
+       例如新增一张：
+         { src: 'https://example.com/photo6.jpg', caption: '🌿 · 06' },
        ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ */
     const GALLERY = [
-      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 01' },
-      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 02' },
-      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 03' },
-      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 04' },
-      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 05' }
-      // ↓↓↓ 以后在此处继续添加新图片对象即可 ↓↓↓
-      // { src: 'https://philfeelsfree.github.io/cherry6.jpg', caption: '🌿 · 06' },
-      // { src: 'https://philfeelsfree.github.io/cherry7.jpg', caption: '🌿 · 07' },
+      { src: 'https://philfeelsfree.github.io/lbti/20261006.jpg', caption: '🌿 · 2026.10.06' },
+      { src: 'https://philfeelsfree.github.io/lbti/20261006.jpg', caption: '🌿 · 2026.10.06' },
+      { src: 'https://philfeelsfree.github.io/lbti/20261006.jpg', caption: '🌿 · 2026.10.06' },
+      { src: 'https://philfeelsfree.github.io/lbti/20261006.jpg', caption: '🌿 · 2026.10.06' },
+      { src: 'https://philfeelsfree.github.io/lbti/20261006.jpg', caption: '🌿 · 2026.10.06' }
+      // ↓↓↓ 在这里继续添加新的图片对象即可 ↓↓↓
+      // { src: 'https://example.com/photo6.jpg', caption: '🌿 · 06' },
+      // { src: 'https://example.com/photo7.jpg', caption: '🌿 · 07' },
     ];
 
     /* 图片加载失败时的绿色占位图 */
@@ -913,13 +925,10 @@
         btn.setAttribute('aria-label', '查看大图：' + item.caption);
 
         const img = document.createElement('img');
-        img.alt = item.caption;
-        /* 直接加载，不使用 lazy，避免隐藏容器中图片不加载的问题 */
         img.src = item.src;
-        img.addEventListener('error', function onThumbError() {
-          img.removeEventListener('error', onThumbError);
-          img.src = PLACEHOLDER;
-        });
+        img.alt = item.caption;
+        img.loading = 'lazy';
+        img.addEventListener('error', () => { img.src = PLACEHOLDER; }, { once: true });
 
         const cap = document.createElement('span');
         cap.className = 'thumb-cap';
@@ -936,16 +945,21 @@
     /* ---------- 全屏查看器 ---------- */
     let lightboxOpen = false;
     let lightboxTimer = null;
+    let previousFocus = null;
+    let previousOverflow = '';
 
-    /* 大图加载失败 → 显示占位图（仅在 lightbox 打开时处理，避免关闭时误触发） */
     lightboxImg.addEventListener('error', () => {
-      if (lightboxOpen) {
+      if (lightboxOpen && lightboxImg.getAttribute('src') !== PLACEHOLDER) {
         lightboxImg.src = PLACEHOLDER;
       }
     });
 
     function openLightbox(item) {
       clearTimeout(lightboxTimer);
+      if (!lightboxOpen) {
+        previousFocus = document.activeElement;
+        previousOverflow = document.body.style.overflow;
+      }
       lightboxImg.src = item.src;
       lightboxImg.alt = item.caption;
       lightboxCap.textContent = item.caption;
@@ -954,6 +968,7 @@
       lightbox.setAttribute('aria-hidden', 'false');
       lightboxOpen = true;
       document.body.style.overflow = 'hidden';
+      lightbox.focus({ preventScroll: true });
     }
 
     function closeLightbox() {
@@ -961,7 +976,8 @@
       lightboxOpen = false;
       lightbox.classList.remove('show');
       lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus) previousFocus.focus({ preventScroll: true });
 
       /* 淡出结束后再清空 src，避免闪白 */
       clearTimeout(lightboxTimer);
@@ -979,12 +995,22 @@
 
     /* Esc 关闭 */
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightboxOpen) closeLightbox();
+      if (!lightboxOpen) return;
+      if (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeLightbox();
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        lightbox.focus();
+      }
     });
 
+    // 所有状态变量初始化后再调用，避免暂时性死区错误中断计时器和相册。
     buildGallery();
+    hideResult();
+    hideExtras();
 
-    console.log('🌿 LBTI · 计时器只显示天数 · 相册共 ' + GALLERY.length + ' 张');
+    console.log('🌿 绿色主题已启用 · 计时器与相册在提交后显示 · 相册共 ' + GALLERY.length + ' 张（可在 GALLERY 数组中继续添加）');
   })();
 </script>
 </body>
