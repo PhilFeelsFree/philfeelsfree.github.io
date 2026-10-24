@@ -583,11 +583,11 @@
   <!-- 结果显示区 (包含固定LISA + 描述 + 图片) -->
   <div id="resultArea" class="result-panel" style="display: none;">
     <div class="result-type" id="typeDisplay">LISA</div>
-    <div class="result-desc" id="descDisplay" style="white-space: pre-wrap;"></div>
     <img id="LISAImage" class="LISA-image"
          src="https://philfeelsfree.github.io/lbti/Lisa.jpg"
          alt="LISA 稀有人格象征"
          onerror="this.style.display='none'; console.warn('LISA图片加载失败，请检查图片路径。')">
+	 <div class="result-desc" id="descDisplay" style="white-space: pre-wrap;"></div>
     <p style="font-size: 0.85rem; margin-top: 8px; color: #3d6b54; opacity: 0.85;">
       ❤️ 无论怎么选，结果都是命中注定
     </p>
@@ -808,19 +808,7 @@
         return;
       }
 
-      
-		
-		
-      if (LISAImage) LISAImage.style.display = 'block';
-
-      resultArea.style.display = 'block';
-      showMessage('', false);
-
-      showExtras();
-
-      setTimeout(() => resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
-	  
-	  typeDisplay.textContent = 'LISA';
+      typeDisplay.textContent = 'LISA';
       descDisplay.textContent =
         '世界上有80亿人，MBTI有16种，而你，就是唯一。' +
         '任何的标签都代表不了你，你也不必成为任何人。在我面前，你只需要做自己。' +
@@ -838,6 +826,16 @@
 		'\n26年10月15日，我们正式地在一起了！' +
 		'\n26年10月21日，我们度过了一个难以忘怀又美好的夜晚！' +
 		'\n未完待续…' ;
+		
+		
+      if (LISAImage) LISAImage.style.display = 'block';
+
+      resultArea.style.display = 'block';
+      showMessage('', false);
+
+      showExtras();
+
+      setTimeout(() => resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
     }
 
     submitBtn.addEventListener('click', handleSubmit);
