@@ -377,11 +377,11 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* ===================== 相册 ===================== */
+    /* ===================== 相册（缩略图网格） ===================== */
     .gallery-panel {
       margin-top: 1.6rem;
       border-radius: 32px;
-      padding: 1.3rem 1.1rem 1rem;
+      padding: 1.3rem 1.1rem 1.1rem;
       background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(228,249,238,0.9));
       border: 1px solid rgba(160, 225, 190, 0.7);
       box-shadow: 0 18px 30px -18px rgba(24, 86, 58, 0.4);
@@ -394,8 +394,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.9rem;
       padding: 0 0.25rem;
+      flex-wrap: wrap;
     }
 
     .gallery-head h2 {
@@ -408,116 +409,134 @@
       gap: 6px;
     }
 
-    .gallery-nav {
-      display: flex;
-      gap: 8px;
+    .gallery-hint {
+      font-size: 0.78rem;
+      color: #4f8f6d;
+      font-weight: 500;
+      letter-spacing: 0.02em;
     }
 
-    .nav-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid rgba(120, 200, 158, 0.6);
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--mint-700);
-      font-size: 1.25rem;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.18s;
-      box-shadow: 0 6px 12px -8px rgba(24, 86, 58, 0.6);
-      font-family: inherit;
-      padding: 0;
-      padding-bottom: 3px;
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(122px, 1fr));
+      gap: 10px;
     }
 
-    .nav-btn:hover {
-      background: var(--mint-100);
-      transform: translateY(-2px);
-    }
-
-    .nav-btn:active {
-      transform: scale(0.94);
-    }
-
-    .gallery-track {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      border-radius: 24px;
-    }
-
-    .gallery-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .gallery-item {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
-      padding: 0 3px;
+    .gallery-thumb {
       position: relative;
-    }
-
-    .gallery-item .frame {
-      position: relative;
-      border-radius: 22px;
+      aspect-ratio: 1 / 1;
+      border-radius: 18px;
       overflow: hidden;
-      aspect-ratio: 4 / 3;
+      cursor: zoom-in;
+      border: 1px solid rgba(255, 255, 255, 0.9);
       background: linear-gradient(135deg, #e3f9ec, #c6f0d8);
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      box-shadow: 0 14px 24px -18px rgba(24, 86, 58, 0.75);
+      box-shadow: 0 8px 16px -12px rgba(24, 86, 58, 0.7);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      padding: 0;
+      font-family: inherit;
+      display: block;
+      width: 100%;
     }
 
-    .gallery-item img {
+    .gallery-thumb:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 16px 24px -14px rgba(24, 86, 58, 0.85);
+    }
+
+    .gallery-thumb:active {
+      transform: scale(0.98);
+    }
+
+    .gallery-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
     }
 
-    .gallery-item figcaption {
+    .gallery-thumb .thumb-cap {
       position: absolute;
-      left: 14px;
-      bottom: 14px;
-      background: rgba(255, 255, 255, 0.85);
+      left: 6px;
+      right: 6px;
+      bottom: 6px;
+      background: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       color: var(--mint-800);
-      font-size: 0.82rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      padding: 0.28rem 0.85rem;
+      padding: 0.16rem 0.5rem;
       border-radius: 999px;
-      box-shadow: 0 4px 10px -6px rgba(24, 86, 58, 0.7);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .gallery-dots {
+    /* 隐藏辅助类 */
+    .hidden {
+      display: none !important;
+    }
+
+    /* ===================== 全屏查看器（挂在 body 下） ===================== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      margin-top: 0.9rem;
+      justify-content: center;
+      gap: 14px;
+      padding: 4vmin;
+      background: rgba(8, 32, 22, 0.86);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: zoom-out;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
     }
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(120, 200, 158, 0.38);
-      border: none;
-      cursor: pointer;
-      transition: all 0.22s ease;
-      padding: 0;
+    .lightbox.show {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .dot.active {
-      width: 24px;
+    .lightbox img {
+      max-width: 94vw;
+      max-height: 82vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9);
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+
+    .lightbox.show img {
+      transform: scale(1);
+    }
+
+    .lightbox-caption {
+      color: #dff6e8;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.3rem 1rem;
       border-radius: 999px;
-      background: var(--mint-500);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-tip {
+      position: absolute;
+      bottom: 2.2vmin;
+      color: rgba(223, 246, 232, 0.7);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
     }
 
     /* 响应式 */
@@ -534,8 +553,11 @@
       .result-desc { font-size: 0.94rem; }
       #timerDays { font-size: 2.9rem; }
       .timer-panel { padding: 1.2rem 1rem 1.1rem; border-radius: 26px; }
-      .gallery-panel { border-radius: 26px; padding: 1.1rem 0.8rem 0.9rem; }
+      .gallery-panel { border-radius: 26px; padding: 1.1rem 0.8rem 0.95rem; }
       .gallery-head h2 { font-size: 0.98rem; }
+      .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(94px, 1fr)); gap: 8px; }
+      .gallery-thumb .thumb-cap { font-size: 0.64rem; }
+      .lightbox img { border-radius: 14px; }
     }
   </style>
 </head>
@@ -573,8 +595,8 @@
 
   <div id="messageArea" class="hint-message"></div>
 
-  <!-- ===================== 计时器 ===================== -->
-  <div class="timer-panel">
+  <!-- ===================== 计时器（提交后显示） ===================== -->
+  <div class="timer-panel hidden" id="timerPanel">
     <div class="timer-eyebrow" id="timerEyebrow">⏳ 距离 2026 年 10 月 15 日 · 已经过去</div>
     <div class="timer-main">
       <span id="timerDays">0</span><small>天</small>
@@ -582,22 +604,28 @@
     <div class="timer-sub" id="timerSub">00 时 00 分 00 秒</div>
   </div>
 
-  <!-- ===================== 相册 ===================== -->
-  <div class="gallery-panel">
+  <!-- ===================== 相册（提交后显示，缩略图网格） ===================== -->
+  <div class="gallery-panel hidden" id="galleryPanel">
     <div class="gallery-head">
-      <h2>🍒 相册 · 左右滑动</h2>
-      <div class="gallery-nav">
-        <button class="nav-btn" id="galleryPrev" type="button" aria-label="上一张">‹</button>
-        <button class="nav-btn" id="galleryNext" type="button" aria-label="下一张">›</button>
-      </div>
+      <h2>🍒 相册</h2>
+      <span class="gallery-hint">点击缩略图查看大图 · 再次点击关闭</span>
     </div>
-    <div class="gallery-track" id="galleryTrack"></div>
-    <div class="gallery-dots" id="galleryDots"></div>
+    <div class="gallery-grid" id="galleryGrid"></div>
   </div>
 
   <div class="footer-note">🍒 和deepseek还有豆包交互了足足5次才做好（~5分钟），真是辛苦我了！</div>
   <div class="footer-note">🍒 看了SBTI，想试试现在的vibe coding发展到什么水平了，没想到这么简单。👍</div>
   <div class="footer-note">🍒 JJJJ的智障描述是亲自写的，AI的幽默感还是不太行。❌ </div>
+</div>
+
+<!-- ===================== 全屏查看器 =====================
+     注意：必须放在 .test-wrapper 之外！
+     因为 .test-wrapper 带有 backdrop-filter，会使内部 position: fixed 元素以它为参照，导致无法铺满全屏。
+     ==================================================== -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCap"></div>
+  <div class="lightbox-tip">点击任意位置关闭 · 或按 Esc</div>
 </div>
 
 <script>
@@ -716,6 +744,13 @@
     const descDisplay  = document.getElementById('descDisplay');
     const messageArea  = document.getElementById('messageArea');
     const jjjjImage    = document.getElementById('jjjjImage');
+    const timerPanel   = document.getElementById('timerPanel');
+    const galleryPanel = document.getElementById('galleryPanel');
+    const galleryGrid  = document.getElementById('galleryGrid');
+
+    const lightbox    = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCap = document.getElementById('lightboxCap');
 
     /* 主图地址（可自行替换为你的 GitHub 图片链接） */
     const CUSTOM_IMAGE_URL = "https://philfeelsfree.github.io/cherry1.jpg";
@@ -729,6 +764,17 @@
       messageArea.innerHTML = '';
     }
 
+    function hideExtras() {
+      timerPanel.classList.add('hidden');
+      galleryPanel.classList.add('hidden');
+      closeLightbox();          /* 顺手关掉全屏查看器 */
+    }
+
+    function showExtras() {
+      timerPanel.classList.remove('hidden');
+      galleryPanel.classList.remove('hidden');
+    }
+
     function showMessage(text, isError = true) {
       messageArea.innerHTML = text;
       messageArea.style.color = isError ? '#b1453c' : '#25784f';
@@ -740,6 +786,7 @@
         radios.forEach(r => { r.checked = false; });
       });
       hideResult();
+      hideExtras();
       showMessage('✨ 已清空', false);
     }
 
@@ -758,6 +805,7 @@
       if (!isAllQuestionsAnswered()) {
         showMessage('🍒 还有题目未选择，请完成所有8道题', true);
         resultArea.style.display = 'none';
+        hideExtras();
         return;
       }
 
@@ -782,6 +830,8 @@
       resultArea.style.display = 'block';
       showMessage('', false);
 
+      showExtras();
+
       setTimeout(() => resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
     }
 
@@ -797,6 +847,7 @@
     });
 
     hideResult();
+    hideExtras();
 
     /* ============================================================
        5. 计时器 —— 距离 2026年10月15日
@@ -830,15 +881,26 @@
     setInterval(updateTimer, 1000);
 
     /* ============================================================
-       6. 相册 —— 左右滑动
+       6. 相册 —— 缩略图网格 + 点击全屏
        ============================================================ */
-    /* 👇 把这里换成你自己的图片地址即可（数量随意） */
+
+    /* ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+       【未来在这里添加图片】
+       在下面的 GALLERY 数组里，照格式新增一行对象即可，页面会自动生成缩略图。
+       每项格式：{ src: '图片地址', caption: '图片说明文字' }
+
+       例如新增一张：
+         { src: 'https://example.com/photo6.jpg', caption: '🍒 车厘子 · 06' },
+       ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ */
     const GALLERY = [
       { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🍒 车厘子 · 01' },
       { src: 'https://philfeelsfree.github.io/cherry2.jpg', caption: '🍒 车厘子 · 02' },
       { src: 'https://philfeelsfree.github.io/cherry3.jpg', caption: '🍒 车厘子 · 03' },
       { src: 'https://philfeelsfree.github.io/cherry4.jpg', caption: '🍒 车厘子 · 04' },
       { src: 'https://philfeelsfree.github.io/cherry5.jpg', caption: '🍒 车厘子 · 05' }
+      // ↓↓↓ 在这里继续添加新的图片对象即可 ↓↓↓
+      // { src: 'https://example.com/photo6.jpg', caption: '🍒 车厘子 · 06' },
+      // { src: 'https://example.com/photo7.jpg', caption: '🍒 车厘子 · 07' },
     ];
 
     /* 图片加载失败时的绿色占位图 */
@@ -849,91 +911,86 @@
       '</linearGradient></defs>' +
       '<rect width="800" height="600" fill="url(#g)"/>' +
       '<text x="400" y="300" font-size="110" text-anchor="middle" fill="#3f8a64" font-family="sans-serif">🍒</text>' +
-      '<text x="400" y="390" font-size="30" text-anchor="middle" fill="#4f8f6d" font-family="sans-serif">相册图片待补充</text>' +
+      '<text x="400" y="390" font-size="30" text-anchor="middle" fill="#4f8f6d" font-family="sans-serif">图片待补充</text>' +
       '</svg>'
     );
 
-    const track    = document.getElementById('galleryTrack');
-    const dotsWrap = document.getElementById('galleryDots');
-    const dots     = [];
+    /* ---------- 生成缩略图网格 ---------- */
+    function buildGallery() {
+      galleryGrid.innerHTML = '';
 
-    GALLERY.forEach((item, i) => {
-      const fig   = document.createElement('figure');
-      fig.className = 'gallery-item';
+      GALLERY.forEach((item) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'gallery-thumb';
+        btn.setAttribute('aria-label', '查看大图：' + item.caption);
 
-      const frame = document.createElement('div');
-      frame.className = 'frame';
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.caption;
+        img.loading = 'lazy';
+        img.addEventListener('error', () => { img.src = PLACEHOLDER; }, { once: true });
 
-      const img = document.createElement('img');
-      img.src = item.src;
-      img.alt = item.caption;
-      img.loading = 'lazy';
-      img.addEventListener('error', () => {
-        img.src = PLACEHOLDER;
-      }, { once: true });
+        const cap = document.createElement('span');
+        cap.className = 'thumb-cap';
+        cap.textContent = item.caption;
 
-      frame.appendChild(img);
+        btn.appendChild(img);
+        btn.appendChild(cap);
+        btn.addEventListener('click', () => openLightbox(item));
 
-      const cap = document.createElement('figcaption');
-      cap.textContent = item.caption;
-
-      fig.appendChild(frame);
-      fig.appendChild(cap);
-      track.appendChild(fig);
-
-      const dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'dot' + (i === 0 ? ' active' : '');
-      dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
-      dot.addEventListener('click', () => {
-        track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+        galleryGrid.appendChild(btn);
       });
-      dotsWrap.appendChild(dot);
-      dots.push(dot);
-    });
-
-    function currentIndex() {
-      return Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
     }
 
-    function syncDots() {
-      const idx = Math.min(Math.max(currentIndex(), 0), dots.length - 1);
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-    }
+    /* ---------- 全屏查看器 ---------- */
+    let lightboxOpen = false;
+    let lightboxTimer = null;
 
-    let rafId = null;
-    track.addEventListener('scroll', () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        syncDots();
-        rafId = null;
-      });
-    }, { passive: true });
-
-    function goBy(dir) {
-      const total = dots.length;
-      if (!total) return;
-      let idx = currentIndex() + dir;
-      if (idx < 0) idx = total - 1;
-      if (idx >= total) idx = 0;
-      track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
-    }
-
-    document.getElementById('galleryPrev').addEventListener('click', () => goBy(-1));
-    document.getElementById('galleryNext').addEventListener('click', () => goBy(1));
-
-    /* 键盘左右方向键切换（鼠标悬停在相册上时） */
-    document.querySelector('.gallery-panel').addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft')  goBy(-1);
-      if (e.key === 'ArrowRight') goBy(1);
+    lightboxImg.addEventListener('error', () => {
+      lightboxImg.src = PLACEHOLDER;
     });
 
-    /* 窗口尺寸变化时重新对齐当前图片 */
-    window.addEventListener('resize', () => {
-      track.scrollTo({ left: currentIndex() * track.clientWidth, behavior: 'auto' });
+    function openLightbox(item) {
+      clearTimeout(lightboxTimer);
+      lightboxImg.src = item.src;
+      lightboxImg.alt = item.caption;
+      lightboxCap.textContent = item.caption;
+
+      lightbox.classList.add('show');
+      lightbox.setAttribute('aria-hidden', 'false');
+      lightboxOpen = true;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      if (!lightboxOpen) return;
+      lightboxOpen = false;
+      lightbox.classList.remove('show');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+
+      /* 淡出结束后再清空 src，避免闪白 */
+      clearTimeout(lightboxTimer);
+      lightboxTimer = setTimeout(() => {
+        if (!lightboxOpen) {
+          lightboxImg.src = '';
+          lightboxCap.textContent = '';
+        }
+      }, 260);
+    }
+
+    /* 点击全屏区域任意位置 → 关闭 */
+    lightbox.addEventListener('click', closeLightbox);
+
+    /* Esc 关闭 */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightboxOpen) closeLightbox();
     });
 
-    console.log('🌿 绿色主题已启用 · 计时器目标：2026-10-15 · 相册条目：' + GALLERY.length);
+    buildGallery();
+
+    console.log('🌿 绿色主题已启用 · 计时器与相册在提交后显示 · 相册共 ' + GALLERY.length + ' 张（可在 GALLERY 数组中继续添加）');
   })();
 </script>
 </body>
