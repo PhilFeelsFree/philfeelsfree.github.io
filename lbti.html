@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>🍒 NBTI · 灵境性格测试</title>
+  <title>🌿 LBTI · 灵型性格测试</title>
   <style>
     :root{
       --ink:#123a2a;
@@ -564,11 +564,11 @@
 <body>
 <div class="test-wrapper">
   <h1>
-    <span>⚡ NBTI · 灵境测试</span>
+    <span>⚡ LBTI · 灵性测试</span>
   </h1>
   <div class="subhead">
-    <p>8道题 · 揭示NBTI</p>
-    <span class="badge">三向选择 · 注定NB</span>
+    <p>8道题 · 揭示LBTI</p>
+    <span class="badge">三向选择 · 注定灵性</span>
   </div>
 
   <!-- 题目区域 (动态渲染) -->
@@ -589,7 +589,7 @@
          alt="JJJJ 稀有人格象征"
          onerror="this.style.display='none'; console.warn('JJJJ图片加载失败，请检查图片路径。')">
     <p style="font-size: 0.85rem; margin-top: 8px; color: #3d6b54; opacity: 0.85;">
-      🍒 无论怎么选，结果都是命中注定
+      🌿 无论怎么选，结果都是命中注定
     </p>
   </div>
 
@@ -607,15 +607,13 @@
   <!-- ===================== 相册（提交后显示，缩略图网格） ===================== -->
   <div class="gallery-panel hidden" id="galleryPanel">
     <div class="gallery-head">
-      <h2>🍒 相册</h2>
+      <h2>🌿 相册</h2>
       <span class="gallery-hint">点击缩略图查看大图 · 再次点击关闭</span>
     </div>
     <div class="gallery-grid" id="galleryGrid"></div>
   </div>
 
-  <div class="footer-note">🍒 和deepseek还有豆包交互了足足5次才做好（~5分钟），真是辛苦我了！</div>
-  <div class="footer-note">🍒 看了SBTI，想试试现在的vibe coding发展到什么水平了，没想到这么简单。👍</div>
-  <div class="footer-note">🍒 JJJJ的智障描述是亲自写的，AI的幽默感还是不太行。❌ </div>
+  <div class="footer-note">🌿 就是你了，我的真爱！ </div>
 </div>
 
 <!-- ===================== 全屏查看器 =====================
@@ -803,7 +801,7 @@
        ============================================================ */
     function handleSubmit() {
       if (!isAllQuestionsAnswered()) {
-        showMessage('🍒 还有题目未选择，请完成所有8道题', true);
+        showMessage('🌿 还有题目未选择，请完成所有8道题', true);
         resultArea.style.display = 'none';
         hideExtras();
         return;
@@ -890,17 +888,17 @@
        每项格式：{ src: '图片地址', caption: '图片说明文字' }
 
        例如新增一张：
-         { src: 'https://example.com/photo6.jpg', caption: '🍒 车厘子 · 06' },
+         { src: 'https://example.com/photo6.jpg', caption: '🌿 · 06' },
        ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ */
     const GALLERY = [
-      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🍒 车厘子 · 01' },
-      { src: 'https://philfeelsfree.github.io/cherry2.jpg', caption: '🍒 车厘子 · 02' },
-      { src: 'https://philfeelsfree.github.io/cherry3.jpg', caption: '🍒 车厘子 · 03' },
-      { src: 'https://philfeelsfree.github.io/cherry4.jpg', caption: '🍒 车厘子 · 04' },
-      { src: 'https://philfeelsfree.github.io/cherry5.jpg', caption: '🍒 车厘子 · 05' }
+      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 01' },
+      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 02' },
+      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 03' },
+      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 04' },
+      { src: 'https://philfeelsfree.github.io/cherry1.jpg', caption: '🌿 · 05' }
       // ↓↓↓ 在这里继续添加新的图片对象即可 ↓↓↓
-      // { src: 'https://example.com/photo6.jpg', caption: '🍒 车厘子 · 06' },
-      // { src: 'https://example.com/photo7.jpg', caption: '🍒 车厘子 · 07' },
+      // { src: 'https://example.com/photo6.jpg', caption: '🌿 · 06' },
+      // { src: 'https://example.com/photo7.jpg', caption: '🌿 · 07' },
     ];
 
     /* 图片加载失败时的绿色占位图 */
@@ -910,7 +908,7 @@
       '<stop offset="0" stop-color="#e3f9ec"/><stop offset="1" stop-color="#a9e3c3"/>' +
       '</linearGradient></defs>' +
       '<rect width="800" height="600" fill="url(#g)"/>' +
-      '<text x="400" y="300" font-size="110" text-anchor="middle" fill="#3f8a64" font-family="sans-serif">🍒</text>' +
+      '<text x="400" y="300" font-size="110" text-anchor="middle" fill="#3f8a64" font-family="sans-serif">🌿</text>' +
       '<text x="400" y="390" font-size="30" text-anchor="middle" fill="#4f8f6d" font-family="sans-serif">图片待补充</text>' +
       '</svg>'
     );
