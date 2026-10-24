@@ -278,8 +278,8 @@
       text-align: left;
     }
 
-    /* JJJJ 专属图片样式 */
-    .jjjj-image {
+    /* LISA 专属图片样式 */
+    .LISA-image {
       margin: 20px auto 10px;
       max-width: 280px;
       width: 100%;
@@ -290,7 +290,7 @@
       display: block;
     }
 
-    .jjjj-image:hover {
+    .LISA-image:hover {
       transform: scale(1.02);
     }
 
@@ -548,7 +548,7 @@
       .option span { padding: 12px 6px; font-size: 0.9rem; }
       .btn { padding: 12px 18px; font-size: 1rem; min-width: 130px; }
       .result-type { font-size: 2.8rem; letter-spacing: 5px; }
-      .jjjj-image { max-width: 220px; }
+      .LISA-image { max-width: 220px; }
       .result-panel { padding: 1.3rem 1.1rem; }
       .result-desc { font-size: 0.94rem; }
       #timerDays { font-size: 2.9rem; }
@@ -580,14 +580,14 @@
     <button class="btn btn-primary" id="submitBtn">✨ 提交</button>
   </div>
 
-  <!-- 结果显示区 (包含固定JJJJ + 描述 + 图片) -->
+  <!-- 结果显示区 (包含固定LISA + 描述 + 图片) -->
   <div id="resultArea" class="result-panel" style="display: none;">
-    <div class="result-type" id="typeDisplay">JJJJ</div>
+    <div class="result-type" id="typeDisplay">LISA</div>
     <div class="result-desc" id="descDisplay" style="white-space: pre-wrap;"></div>
-    <img id="jjjjImage" class="jjjj-image"
-         src="https://philfeelsfree.github.io/lbit/Lisa.jpg"
-         alt="JJJJ 稀有人格象征"
-         onerror="this.style.display='none'; console.warn('JJJJ图片加载失败，请检查图片路径。')">
+    <img id="LISAImage" class="LISA-image"
+         src="https://philfeelsfree.github.io/lbti/Lisa.jpg"
+         alt="LISA 稀有人格象征"
+         onerror="this.style.display='none'; console.warn('LISA图片加载失败，请检查图片路径。')">
     <p style="font-size: 0.85rem; margin-top: 8px; color: #3d6b54; opacity: 0.85;">
       🌿 无论怎么选，结果都是命中注定
     </p>
@@ -741,7 +741,7 @@
     const typeDisplay  = document.getElementById('typeDisplay');
     const descDisplay  = document.getElementById('descDisplay');
     const messageArea  = document.getElementById('messageArea');
-    const jjjjImage    = document.getElementById('jjjjImage');
+    const LISAImage    = document.getElementById('LISAImage');
     const timerPanel   = document.getElementById('timerPanel');
     const galleryPanel = document.getElementById('galleryPanel');
     const galleryGrid  = document.getElementById('galleryGrid');
@@ -751,8 +751,8 @@
     const lightboxCap = document.getElementById('lightboxCap');
 
     /* 主图地址（可自行替换为你的 GitHub 图片链接） */
-    const CUSTOM_IMAGE_URL = "https://philfeelsfree.github.io/lbit/Lisa.jpg";
-    if (jjjjImage) jjjjImage.src = CUSTOM_IMAGE_URL;
+    const CUSTOM_IMAGE_URL = "https://philfeelsfree.github.io/lbti/Lisa.jpg";
+    if (LISAImage) LISAImage.src = CUSTOM_IMAGE_URL;
 
     /* ============================================================
        3. 结果 / 提示 辅助函数
@@ -798,7 +798,7 @@
     }
 
     /* ============================================================
-       4. 提交逻辑 —— 强制 JJJJ
+       4. 提交逻辑 —— 强制 LISA
        ============================================================ */
     function handleSubmit() {
       if (!isAllQuestionsAnswered()) {
@@ -808,23 +808,27 @@
         return;
       }
 
-      typeDisplay.textContent = 'JJJJ';
+      typeDisplay.textContent = 'LISA';
       descDisplay.textContent =
-        'JJJJ是宇宙中最稀有的人格，如同JJJJ车厘子一样罕见。你一年最多变P一次，尽管一次最多可能持续365天，但这并不影响你心底里是宇宙中最J的J人。' +
-        '你总是在DDL之前0.00001秒就早早完成工作，如此从从容容游刃有余的状态足以证明你拥有果决的判断、长远的规划和恐怖的效率。' +
-        '作为JJJJ的你是天选科研人，你在项目申请书提交前6.5（巨蟹座 DX）年（也就是3个地球日）就开始和别人展开讨论。' +
-        'JJJJ是如此之J，以至于林俊杰（JJ）、周杰伦（Jay）、蔡依林（Jolin）加起来也只能勉强和你一样J。' +
-        '你说自己3分钟热度，实际上热度长达3小时。你说自己水，但你深知水是JJJJ车厘子必须的。' +
-        '你看似纠结，实则早已洞悉一切。你看似摆烂，实则是隐藏实力，因为你知道阿拉伯谚语：“不要使出真本事，因为别人就会发现你没有真本事。”' +
-        '你从不自欺欺人，喜欢用数据说话，就像这个测试一样科学、严谨。' +
-        '你的最佳搭档是INTJ/ISFJ，因为他仰慕强，而你，JJJJ，看似只是4个勾，在斗地主里比你强的还有4个Q/K/A/2和王炸，但在他眼里，你就是4个Joker，也就是王炸x2（这里没有嘲讽你是小丑的意思😅）。' +
-        '你一定能拿下那些NSFC并减肥成功。当然，你最想要的开心快乐也会有的！' +
-        '\n26年4月29日，我第一次对你说：“我真挺喜欢你的。”' +
-        '\n26年5月10日，我们坦诚、深入地聊天，我理解你的处境。虽然希望渺茫，但我愿意坚持！' +
-        '\n26年5月15日，我想让你感受我的爱慕，我担心相处的时间所剩无几。但我感受到你的压力，尽管喜欢但我不得不后退一点。' +
-        '\n26年5月19日，我们再次深入地聊天，我本已决定减少联系，但20日、21日我们频繁地偶遇，这是命运的玩笑吗？希望命运能安排我们经常相遇并最终在一起。';
-
-      if (jjjjImage) jjjjImage.style.display = 'block';
+        '世界上有80亿人，MBTI有16种，而你就是唯一。' +
+        '任何的标签都代表不了你，你也不必成为任何人。在我面前，你只需要做自己。' +
+        '你不仅外表美丽、声音甜美，更重要的是你善良、温柔、优秀、勤奋、坚韧、坚守原则、不随波逐流；你还乐观、幽默、有趣、可爱。' +
+        '每当你你谈起你心爱的事业，你眼里有光！' +
+        '最难得的是，我们如此相像、如此有默契，让我坚信我们就是灵魂伴侣。' +
+        '你满足了我对另一半的所有想象。和你在一起，我感受到从未体验过的稳稳的幸福。你说,这就是正缘。”' +
+        '在遇到你之前，我以为自己永远都遇不到契合的人;是你救赎了我。谢谢你，我的真爱！' +
+        '\n26年5月26日，我发微信问：“叫你刘老师？” 你回：“哈哈哈这么快就暴露了”，就这样，我们的缘分开始了…' +
+        '\n26年6月11日，我们第一次电话聊天。你的声音真的很好听！' +
+        '\n26年8月30日，从我们的聊天中我获得了极大的幸福感，那是我从未体验过的感觉。我第一次送刘老师礼物，想把这份幸福具象成一份心意。' +
+        '\n26年9月26日，我们终于见面了。你穿着一袭黑色长裙，太美了！' +
+		'\n26年10月1日，第一次去你家。你滔滔不绝地介绍自己著作的样子，就是我理想伴侣的模样。分别时我们第一次拥抱，我心里想：“就是你了！”' +
+		'\n26年10月6日，“总有一天你会出现在我身边。”和你一起站在麓湖边看着带孩子的父母、相互扶持的老人，我想和你走完一生。' +
+		'\n26年10月15日，我们正式地在一起了！' +
+		'\n26年10月21日，我们度过了一个难以忘怀又美好的夜晚！' +
+		'\n未完待续…' ;
+		
+		
+      if (LISAImage) LISAImage.style.display = 'block';
 
       resultArea.style.display = 'block';
       showMessage('', false);
@@ -868,7 +872,7 @@
 
       daysEl.textContent = days.toLocaleString('en-US');
       eyebrowEl.textContent = past
-        ? '⏳ 我们在一起已经'
+        ? '⏳ 我们在一起（2026.10.15 21:00）已经'
         : '⏳ 距离 2026 年 10 月 15 日 · 还有';
       subEl.textContent = `${pad2(hours)} 时 ${pad2(mins)} 分 ${pad2(secs)} 秒`;
     }
