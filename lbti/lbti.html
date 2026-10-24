@@ -808,9 +808,21 @@
         return;
       }
 
-      typeDisplay.textContent = 'LISA';
+      
+		
+		
+      if (LISAImage) LISAImage.style.display = 'block';
+
+      resultArea.style.display = 'block';
+      showMessage('', false);
+
+      showExtras();
+
+      setTimeout(() => resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
+	  
+	  typeDisplay.textContent = 'LISA';
       descDisplay.textContent =
-        '世界上有80亿人，MBTI有16种，而你就是唯一。' +
+        '世界上有80亿人，MBTI有16种，而你，就是唯一。' +
         '任何的标签都代表不了你，你也不必成为任何人。在我面前，你只需要做自己。' +
         '你不仅外表美丽、声音甜美，更重要的是你善良、温柔、优秀、勤奋、坚韧、坚守原则、不随波逐流；你还乐观、幽默、有趣、可爱。' +
         '每当你你谈起你心爱的事业，你眼里有光！' +
@@ -826,16 +838,6 @@
 		'\n26年10月15日，我们正式地在一起了！' +
 		'\n26年10月21日，我们度过了一个难以忘怀又美好的夜晚！' +
 		'\n未完待续…' ;
-		
-		
-      if (LISAImage) LISAImage.style.display = 'block';
-
-      resultArea.style.display = 'block';
-      showMessage('', false);
-
-      showExtras();
-
-      setTimeout(() => resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 60);
     }
 
     submitBtn.addEventListener('click', handleSubmit);
